@@ -1,102 +1,249 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Family Scam Shield</title>
-  <meta name="description" content="Paste a suspicious message and get a scam risk score in 5 seconds. Privacy-first, no backend." />
-  <link rel="stylesheet" href="./src/styles.css" />
+  <title>Family Scam Shield — Check suspicious messages before clicking</title>
+  <meta name="description" content="Privacy-first scam message checker for families. Paste suspicious SMS, WhatsApp, parcel, payment, bank, job, or investment messages and get a risk score instantly." />
+  <meta property="og:title" content="Family Scam Shield" />
+  <meta property="og:description" content="Check suspicious messages before they trick your family." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#00C96A" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="icon" type="image/svg+xml" href="./assets/icon.svg" />
+<link rel="shortcut icon" href="./assets/icon.svg" />
+<link rel="apple-touch-icon" href="./assets/icon.svg" />
+<link rel="stylesheet" href="./src/styles.css" />
 </head>
+
 <body>
-  <main class="shell">
-    <section class="hero">
-      <div class="badge">Privacy-first · Runs in your browser · No login</div>
-      <h1>Check suspicious messages before they trick your family.</h1>
-      <p class="subtitle">
-        Paste an SMS, WhatsApp, Telegram, email, parcel alert, bank warning, job offer, or payment message.
-        Get a risk score, red flags, safe next steps, and a warning message you can send to family.
-      </p>
+  <div class="page-orb page-orb-a"></div>
+  <div class="page-orb page-orb-b"></div>
 
-      <div class="hero-actions">
-        <button id="loadExample" class="secondary">Load scam example</button>
-        <button id="clearAll" class="ghost">Clear</button>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Family Scam Shield home">
+      <span class="brand-mark"><img src="./assets/icon.svg" alt="AIProfitHub icon" /></span>
+      <span>
+        <strong>Family Scam Shield</strong>
+        <small data-i18n="brandSub">Open-source safety tool</small>
+      </span>
+    </a>
+
+    <nav class="nav">
+      <a href="#checker" data-i18n="navChecker">Checker</a>
+      <a href="#how" data-i18n="navHow">How it works</a>
+      <a href="#patterns" data-i18n="navPatterns">Patterns</a>
+      <a href="https://github.com/aiprofithub/family-scam-shield" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+
+    <div class="header-actions">
+      
+      <div class="lang-switch" aria-label="Language switcher">
+        <button id="langEn" class="active" type="button">EN</button>
+        <button id="langTh" type="button">TH</button>
       </div>
-    </section>
+    </div>
+  </header>
 
-    <section class="grid">
-      <div class="card input-card">
-        <label for="messageInput">Suspicious message</label>
-        <textarea id="messageInput" placeholder="Paste the suspicious message here..."></textarea>
-
-        <div class="controls">
-          <select id="language">
-            <option value="en">Family warning: English</option>
-            <option value="th">Family warning: Thai</option>
-            <option value="ms">Family warning: Malay</option>
-            <option value="id">Family warning: Indonesian</option>
-          </select>
-          <button id="analyzeBtn">Check risk</button>
+  <main>
+    <section class="hero-section">
+      <div class="hero-copy">
+        <div class="pill">
+          <span class="pulse"></span>
+          <span data-i18n="pill">Privacy-first · No login · Runs in your browser</span>
         </div>
 
-        <p class="privacy">
-          Nothing is uploaded. This MVP analyzes text locally in your browser.
+        <h1 data-i18n="heroTitle">Check suspicious messages before they trick your family.</h1>
+
+        <p class="hero-subtitle" data-i18n="heroSubtitle">
+          Paste an SMS, WhatsApp, Telegram, email, parcel alert, bank warning, job offer, or payment message. Get a risk score, red flags, safe next steps, and a warning message you can send to family.
         </p>
+
+        <div class="hero-ctas">
+          <a class="primary-link" href="#checker" data-i18n="ctaTry">Check a message</a>
+          <button class="secondary-link" id="loadHeroExample" type="button" data-i18n="ctaExample">Load example</button>
+        </div>
+
+        <div class="trust-row">
+          <span data-i18n="trustOne">No backend</span>
+          <span data-i18n="trustTwo">No storage</span>
+          <span data-i18n="trustThree">Copyable family warning</span>
+        </div>
       </div>
 
-      <div class="card result-card">
-        <div class="result-top">
-          <div>
-            <span class="eyebrow">Scam risk</span>
-            <h2 id="riskLabel">Not checked</h2>
-          </div>
-          <div id="scoreCircle" class="score-circle">--</div>
-        </div>
-
-        <div id="summary" class="summary">
-          Paste a message and click <strong>Check risk</strong>.
-        </div>
-
-        <div class="sections">
-          <div>
-            <h3>Red flags</h3>
-            <ul id="redFlags"></ul>
+      <div class="hero-visual" aria-label="Product preview">
+        <div class="runtime-frame">
+          <div class="runtime-top">
+            <div>
+              <span class="window-dot"></span>
+              <span class="window-dot"></span>
+              <span class="window-dot"></span>
+            </div>
+            <span data-i18n="runtimeLabel">Live Scam Risk Console</span>
           </div>
 
-          <div>
-            <h3>Safe next steps</h3>
-            <ol id="nextSteps"></ol>
+          <div class="runtime-grid">
+            <div class="mini-card">
+              <span data-i18n="miniRisk">Risk score</span>
+              <strong>91/100</strong>
+              <small data-i18n="miniRiskSub">Critical pattern detected</small>
+            </div>
+            <div class="mini-card">
+              <span data-i18n="miniFlag">Top red flag</span>
+              <strong data-i18n="miniFlagValue">Payment link</strong>
+              <small data-i18n="miniFlagSub">Unknown URL + urgency</small>
+            </div>
           </div>
 
-          <div>
-            <h3>Message to send family</h3>
-            <div id="familyMessage" class="family-message">A warning message will appear here.</div>
-            <button id="copyFamilyMessage" class="secondary full">Copy warning message</button>
+          <div class="message-preview">
+            <span data-i18n="previewLabel">Suspicious message</span>
+            <p data-i18n="previewText">Your parcel is on hold. Pay RM2.99 immediately to release delivery: http://short-link-example.com</p>
           </div>
 
-          <div>
-            <h3>Shareable result card</h3>
-            <pre id="shareCard" class="share-card">Result card will appear here.</pre>
-            <button id="copyShareCard" class="secondary full">Copy result card</button>
+          <div class="action-preview">
+            <span data-i18n="previewAction">Recommended action</span>
+            <strong data-i18n="previewActionValue">Do not click. Open the official courier app directly.</strong>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="how-it-works">
-      <h2>Built for the real family loop</h2>
-      <div class="steps">
-        <div><strong>1.</strong> Someone receives a weird message.</div>
-        <div><strong>2.</strong> They paste it here before clicking.</div>
-        <div><strong>3.</strong> The tool explains the risk in plain language.</div>
-        <div><strong>4.</strong> They send the warning back to family.</div>
+    <section class="checker-section" id="checker">
+      <div class="section-heading">
+        <span class="eyebrow" data-i18n="checkerEyebrow">5-second family safety check</span>
+        <h2 data-i18n="checkerTitle">Paste. Check. Warn family.</h2>
+        <p data-i18n="checkerSubtitle">This MVP uses transparent rule-based detection. It is not perfect, but it gives people a fast second opinion before clicking.</p>
+      </div>
+
+      <div class="checker-grid">
+        <article class="panel input-panel">
+          <div class="panel-header">
+            <div>
+              <span class="eyebrow" data-i18n="inputEyebrow">Input</span>
+              <h3 data-i18n="inputTitle">Suspicious message</h3>
+            </div>
+            <button class="small-btn" id="loadExample" type="button" data-i18n="loadExample">Example</button>
+          </div>
+
+          <textarea id="messageInput" data-i18n-placeholder="inputPlaceholder" placeholder="Paste suspicious message here..."></textarea>
+
+          <div class="controls">
+            <select id="warningLanguage" aria-label="Warning message language">
+              <option value="en">Warning message: English</option>
+              <option value="th">ข้อความเตือน: ไทย</option>
+            </select>
+            <button id="analyzeBtn" type="button" data-i18n="analyzeBtn">Check risk</button>
+          </div>
+
+          <p class="note" data-i18n="privacyNote">
+            Privacy note: text is analyzed locally in your browser. Nothing is uploaded by this static demo.
+          </p>
+        </article>
+
+        <article class="panel result-panel">
+          <div class="result-hero">
+            <div>
+              <span class="eyebrow" data-i18n="resultEyebrow">Result</span>
+              <h3 id="riskLabel" data-i18n="notChecked">Not checked</h3>
+              <p id="summary" data-i18n="emptySummary">Paste a message and click Check risk.</p>
+            </div>
+            <div id="scoreCircle" class="score-circle">--</div>
+          </div>
+
+          <div class="result-blocks">
+            <section class="result-block">
+              <h4 data-i18n="redFlagsTitle">Red flags</h4>
+              <ul id="redFlags"></ul>
+            </section>
+
+            <section class="result-block">
+              <h4 data-i18n="nextStepsTitle">Safe next steps</h4>
+              <ol id="nextSteps"></ol>
+            </section>
+
+            <section class="result-block">
+              <h4 data-i18n="familyMessageTitle">Message to send family</h4>
+              <div id="familyMessage" class="copy-box" data-i18n="familyEmpty">A warning message will appear here.</div>
+              <button class="copy-btn" id="copyFamilyMessage" type="button" data-i18n="copyFamily">Copy family warning</button>
+            </section>
+
+            <section class="result-block">
+              <h4 data-i18n="shareCardTitle">Shareable result card</h4>
+              <pre id="shareCard" class="copy-box pre-box" data-i18n="shareEmpty">Result card will appear here.</pre>
+              <button class="copy-btn" id="copyShareCard" type="button" data-i18n="copyResult">Copy result card</button>
+            </section>
+          </div>
+        </article>
       </div>
     </section>
 
-    <footer>
-      Educational tool only. Always verify through official apps, official websites, or trusted support channels.
-    </footer>
+    <section class="how-section" id="how">
+      <div class="section-heading left">
+        <span class="eyebrow" data-i18n="howEyebrow">Why this might spread</span>
+        <h2 data-i18n="howTitle">Built around a real family loop.</h2>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <span>01</span>
+          <h3 data-i18n="stepOneTitle">Someone receives a weird message</h3>
+          <p data-i18n="stepOneText">A parcel fee, bank warning, job offer, payment request, or unknown link appears.</p>
+        </div>
+        <div class="step-card">
+          <span>02</span>
+          <h3 data-i18n="stepTwoTitle">They paste it before clicking</h3>
+          <p data-i18n="stepTwoText">The tool checks common scam patterns instantly in the browser.</p>
+        </div>
+        <div class="step-card">
+          <span>03</span>
+          <h3 data-i18n="stepThreeTitle">They get plain-language guidance</h3>
+          <p data-i18n="stepThreeText">No cyber jargon. Just risk, red flags, and what to do next.</p>
+        </div>
+        <div class="step-card">
+          <span>04</span>
+          <h3 data-i18n="stepFourTitle">They warn family</h3>
+          <p data-i18n="stepFourText">The result includes a copyable warning message for parents, relatives, or friends.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="patterns-section" id="patterns">
+      <div class="section-heading">
+        <span class="eyebrow" data-i18n="patternsEyebrow">Detection coverage</span>
+        <h2 data-i18n="patternsTitle">Common scam patterns this MVP checks.</h2>
+      </div>
+
+      <div class="pattern-grid">
+        <div class="pattern-card" data-i18n="patternParcel">Fake parcel or delivery fee</div>
+        <div class="pattern-card" data-i18n="patternBank">Fake bank/account warning</div>
+        <div class="pattern-card" data-i18n="patternOtp">OTP, PIN, or password request</div>
+        <div class="pattern-card" data-i18n="patternJob">Too-good job or side-income offer</div>
+        <div class="pattern-card" data-i18n="patternInvest">Investment or guaranteed return</div>
+        <div class="pattern-card" data-i18n="patternLink">Unknown shortened link</div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <h2 data-i18n="bottomTitle">Use it, share it, then decide if it deserves a v2.</h2>
+      <p data-i18n="bottomText">If people send real examples, ask for local languages, or share it with family, that is the signal to build the next version.</p>
+      <div class="hero-ctas center">
+        <a class="primary-link" href="#checker" data-i18n="bottomCta">Try the checker</a>
+        <a class="secondary-link as-link" href="https://github.com/aiprofithub/family-scam-shield" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </section>
   </main>
 
-  <script type="module" src="./src/app.js"></script>
+  <footer class="site-footer">
+    <p data-i18n="footerDisclaimer">Educational tool only. It cannot guarantee whether a message is truly safe or unsafe. Always verify through official apps, websites, or trusted support channels.</p>
+    <p>Family Scam Shield · Open-source experiment</p>
+  </footer>
+
+  <script defer src="./src/app.js"></script>
 </body>
 </html>
+
+
+
+
