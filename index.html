@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Family Scam Shield</title>
+  <meta name="description" content="Paste a suspicious message and get a scam risk score in 5 seconds. Privacy-first, no backend." />
+  <link rel="stylesheet" href="./src/styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div class="badge">Privacy-first · Runs in your browser · No login</div>
+      <h1>Check suspicious messages before they trick your family.</h1>
+      <p class="subtitle">
+        Paste an SMS, WhatsApp, Telegram, email, parcel alert, bank warning, job offer, or payment message.
+        Get a risk score, red flags, safe next steps, and a warning message you can send to family.
+      </p>
+
+      <div class="hero-actions">
+        <button id="loadExample" class="secondary">Load scam example</button>
+        <button id="clearAll" class="ghost">Clear</button>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card input-card">
+        <label for="messageInput">Suspicious message</label>
+        <textarea id="messageInput" placeholder="Paste the suspicious message here..."></textarea>
+
+        <div class="controls">
+          <select id="language">
+            <option value="en">Family warning: English</option>
+            <option value="th">Family warning: Thai</option>
+            <option value="ms">Family warning: Malay</option>
+            <option value="id">Family warning: Indonesian</option>
+          </select>
+          <button id="analyzeBtn">Check risk</button>
+        </div>
+
+        <p class="privacy">
+          Nothing is uploaded. This MVP analyzes text locally in your browser.
+        </p>
+      </div>
+
+      <div class="card result-card">
+        <div class="result-top">
+          <div>
+            <span class="eyebrow">Scam risk</span>
+            <h2 id="riskLabel">Not checked</h2>
+          </div>
+          <div id="scoreCircle" class="score-circle">--</div>
+        </div>
+
+        <div id="summary" class="summary">
+          Paste a message and click <strong>Check risk</strong>.
+        </div>
+
+        <div class="sections">
+          <div>
+            <h3>Red flags</h3>
+            <ul id="redFlags"></ul>
+          </div>
+
+          <div>
+            <h3>Safe next steps</h3>
+            <ol id="nextSteps"></ol>
+          </div>
+
+          <div>
+            <h3>Message to send family</h3>
+            <div id="familyMessage" class="family-message">A warning message will appear here.</div>
+            <button id="copyFamilyMessage" class="secondary full">Copy warning message</button>
+          </div>
+
+          <div>
+            <h3>Shareable result card</h3>
+            <pre id="shareCard" class="share-card">Result card will appear here.</pre>
+            <button id="copyShareCard" class="secondary full">Copy result card</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-it-works">
+      <h2>Built for the real family loop</h2>
+      <div class="steps">
+        <div><strong>1.</strong> Someone receives a weird message.</div>
+        <div><strong>2.</strong> They paste it here before clicking.</div>
+        <div><strong>3.</strong> The tool explains the risk in plain language.</div>
+        <div><strong>4.</strong> They send the warning back to family.</div>
+      </div>
+    </section>
+
+    <footer>
+      Educational tool only. Always verify through official apps, official websites, or trusted support channels.
+    </footer>
+  </main>
+
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>

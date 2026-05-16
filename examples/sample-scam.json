@@ -1,0 +1,5 @@
+{
+  "message": "Your parcel is on hold. Pay RM2.99 to release delivery: http://short-link-example.com",
+  "expectedRisk": "High/Critical",
+  "notes": "Classic fake delivery + payment link pattern."
+}
